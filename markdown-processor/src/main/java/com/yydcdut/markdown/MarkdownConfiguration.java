@@ -543,6 +543,17 @@ public class MarkdownConfiguration {
         }
 
         /**
+         * set auto link enable
+         *
+         * @param autoLink set auto link enable
+         * @return self
+         */
+        public Builder setAutoLinkEnable(boolean autoLink) {
+            link.autoLink = autoLink;
+            return this;
+        }
+
+        /**
          * is link underline
          *
          * @param show boolean, whether show link underline
