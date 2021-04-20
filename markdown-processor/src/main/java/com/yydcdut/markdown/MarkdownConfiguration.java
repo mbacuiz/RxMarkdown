@@ -249,6 +249,15 @@ public class MarkdownConfiguration {
     }
 
     /**
+     * support auto link
+     *
+     * @return support auto link
+     */
+    public boolean isAutoLinkEnable() {
+        return link.autoLink;
+    }
+
+    /**
      * whether show link underline
      *
      * @return whether show link underline
