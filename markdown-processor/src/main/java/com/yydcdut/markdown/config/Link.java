@@ -24,7 +24,7 @@ import com.yydcdut.markdown.callback.OnLinkClickCallback;
  */
 public class Link {
     public int color = Color.RED;
-    public boolean autoLink = false;
+    public boolean autoLink = true;
     public boolean underline = true;
     public OnLinkClickCallback callback;
 }
