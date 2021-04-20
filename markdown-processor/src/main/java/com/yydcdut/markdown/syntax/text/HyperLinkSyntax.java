@@ -41,7 +41,8 @@ import java.util.regex.Pattern;
  * Created by yuyidong on 16/5/14.
  */
 class HyperLinkSyntax extends TextSyntaxAdapter {
-    private static final String PATTERN = ".*?[\\[]{1}.*?[\\](]{1}.*?[)]{1}.*?";
+    private static final String PATTERN = ".*[\\[]{1}.*[\\](]{1}.*[)]{1}.*";
+    private static final String MD_LINK_PATTERN = ".*?[\\[]{1}.*?[\\](]{1}.*?[)]{1}.*?";
     private static final String AUTO_LINK_PATTERN = "https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     private int mColor;
@@ -59,7 +60,13 @@ class HyperLinkSyntax extends TextSyntaxAdapter {
 
     @Override
     boolean isMatch(@NonNull String text) {
-        return Pattern.compile(PATTERN).matcher(text).matches();
+        if (isAutoLink) {
+            return contains(text)
+                    ? Pattern.compile(PATTERN).matcher(text).matches()
+                    : Pattern.compile(AUTO_LINK_PATTERN).matcher(text).find();
+        } else {
+            return Pattern.compile(MD_LINK_PATTERN).matcher(text).matches();
+        }
     }
 
     @NonNull
