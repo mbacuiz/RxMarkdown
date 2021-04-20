@@ -46,6 +46,7 @@ class HyperLinkSyntax extends TextSyntaxAdapter {
 
     private int mColor;
     private boolean isUnderLine;
+    private boolean isAutoLink;
     private OnLinkClickCallback mOnLinkClickCallback;
 
     public HyperLinkSyntax(@NonNull MarkdownConfiguration markdownConfiguration) {
@@ -53,11 +54,14 @@ class HyperLinkSyntax extends TextSyntaxAdapter {
         mColor = markdownConfiguration.getLinkFontColor();
         isUnderLine = markdownConfiguration.isShowLinkUnderline();
         mOnLinkClickCallback = markdownConfiguration.getOnLinkClickCallback();
+        isAutoLink = markdownConfiguration.isAutoLinkEnable();
     }
 
     @Override
     boolean isMatch(@NonNull String text) {
-        return contains(text) ? Pattern.compile(PATTERN).matcher(text).matches() : Pattern.compile(AUTO_LINK_PATTERN).matcher(text).find();
+        return contains(text)
+                ? Pattern.compile(PATTERN).matcher(text).matches()
+                : isAutoLink ? Pattern.compile(AUTO_LINK_PATTERN).matcher(text).find() : false;
     }
 
     @NonNull
@@ -73,7 +77,7 @@ class HyperLinkSyntax extends TextSyntaxAdapter {
     @Override
     SpannableStringBuilder format(@NonNull SpannableStringBuilder ssb, int lineNumber) {
         parse(ssb);
-        parseAutoLink(ssb);
+        if(isAutoLink) parseAutoLink(ssb);
         return ssb;
     }
 
