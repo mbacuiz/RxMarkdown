@@ -77,7 +77,7 @@ class HyperLinkSyntax extends TextSyntaxAdapter {
     @Override
     SpannableStringBuilder format(@NonNull SpannableStringBuilder ssb, int lineNumber) {
         parse(ssb);
-        if(isAutoLink) parseAutoLink(ssb);
+        parseAutoLink(ssb);
         return ssb;
     }
 
