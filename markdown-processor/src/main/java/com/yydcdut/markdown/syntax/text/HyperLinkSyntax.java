@@ -59,9 +59,7 @@ class HyperLinkSyntax extends TextSyntaxAdapter {
 
     @Override
     boolean isMatch(@NonNull String text) {
-        return contains(text)
-                ? Pattern.compile(PATTERN).matcher(text).matches()
-                : isAutoLink ? Pattern.compile(AUTO_LINK_PATTERN).matcher(text).find() : false;
+        return Pattern.compile(PATTERN).matcher(text).matches();
     }
 
     @NonNull
